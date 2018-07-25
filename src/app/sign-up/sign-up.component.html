@@ -1,0 +1,59 @@
+<div class="row custom-row" >
+  <div class="container">
+
+    <form class="form-horizontal" [formGroup]="signupForm" >
+      <fieldset>
+        <legend align="center"><strong>SignUp</strong></legend>
+        <hr>
+        <div class="container">
+          <div class="form-group">
+            <label for="inputEmail">Email</label>
+            <input type="text" formControlName="email" id="inputEmail" placeholder="Email">
+          </div>
+
+          <!-- - Password Block - -->
+          <div formGroupName="password">
+            <div class="form-group">
+              <label for="inputPassword">Password</label>
+              <input type="password" formControlName="pwd" id="inputPassword" placeholder="Password">
+            </div>
+
+            <div class="form-group">
+              <label for="confirmPassword">Confirm Password</label>
+              <input type="password" formControlName="confirmPwd" id="confirmPassword" placeholder="Password">
+            </div>
+          </div>
+          <!--- Gender Block -->
+          <div class="form-group">
+            <label for="select">Gender</label>
+            <select id="select" formControlName="gender">
+
+              <option *ngFor="let g of genderList" [value]="g"> {{g}}
+              </option>
+            </select>
+          </div>
+
+
+          <!-- - Terms and conditions Block - -->
+          <div class="form-group checkbox">
+            <label>
+              <input type="checkbox" formControlName="terms"> Confirm that you've read the Terms and Conditions
+            </label>
+          </div>
+
+          <!-- - Buttons Block - -->
+          <div class="form-group">
+            <button type="reset" class="cancelbtn">Cancel</button>
+            <button type="submit" [disabled]="!signupForm.valid" class="signupbtn">SignUp</button>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+    </div>
+  </div>
+
+  <!--- Log the FormGroup values to see if the binding is working -->
+  <!-- Pipe the SignupForm property through the JsonPipe to render the model as JSON in the browser. 
+This is helpful for debugging and logging. You should see a JSON output like this. -->
+  <p>Form value {{ signupForm.value | json }} </p>
+  <p> Form status {{ signupForm.status | json}} </p>
