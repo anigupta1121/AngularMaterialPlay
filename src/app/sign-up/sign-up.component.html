@@ -1,14 +1,27 @@
-<div class="row custom-row" >
+<div class="row custom-row">
   <div class="container">
 
-    <form class="form-horizontal" [formGroup]="signupForm" >
+    <form class="form-horizontal" [formGroup]="signupForm"  (ngSubmit)="onFormSubmit()">
       <fieldset>
-        <legend align="center"><strong>SignUp</strong></legend>
+        <legend align="center">
+          <strong>SignUp</strong>
+        </legend>
         <hr>
         <div class="container">
           <div class="form-group">
             <label for="inputEmail">Email</label>
             <input type="text" formControlName="email" id="inputEmail" placeholder="Email">
+            <div *ngIf="email.invalid && email.touched" class="col-sm-3 text-danger">
+
+              <div *ngIf="email.errors?.required">
+                Email field can't be blank
+              </div>
+
+              <div *ngIf="email.errors?.pattern">
+                The email id doesn't seem right
+              </div>
+
+            </div>
           </div>
 
           <!-- - Password Block - -->
@@ -21,7 +34,13 @@
             <div class="form-group">
               <label for="confirmPassword">Confirm Password</label>
               <input type="password" formControlName="confirmPwd" id="confirmPassword" placeholder="Password">
+
             </div>
+            <div *ngIf="(password.invalid && password.touched)" class="col-sm-3 text-danger">
+
+              Password needs to be more than 8 characters
+            </div>
+
           </div>
           <!--- Gender Block -->
           <div class="form-group">
@@ -39,6 +58,10 @@
             <label>
               <input type="checkbox" formControlName="terms"> Confirm that you've read the Terms and Conditions
             </label>
+            <div *ngIf="(terms.invalid && terms.touched)" class="col-sm-3 text-danger">
+
+              Please accept the Terms and conditions first.
+            </div>
           </div>
 
           <!-- - Buttons Block - -->
@@ -49,11 +72,11 @@
         </div>
       </fieldset>
     </form>
-    </div>
   </div>
+</div>
 
-  <!--- Log the FormGroup values to see if the binding is working -->
-  <!-- Pipe the SignupForm property through the JsonPipe to render the model as JSON in the browser. 
+<!--- Log the FormGroup values to see if the binding is working -->
+<!-- Pipe the SignupForm property through the JsonPipe to render the model as JSON in the browser. 
 This is helpful for debugging and logging. You should see a JSON output like this. -->
-  <p>Form value {{ signupForm.value | json }} </p>
-  <p> Form status {{ signupForm.status | json}} </p>
+<p>Form value {{ signupForm.value | json }} </p>
+<p> Form status {{ signupForm.status | json}} </p>
